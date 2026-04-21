@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>偉業予測AI - 結果</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">偉業予測AI</h1>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>診断結果</h2>
+
+      <div class="result-box">
+        <h3>大分類</h3>
+        <p id="predictionResult">結果を読み込み中です...</p>
+      </div>
+
+      <div class="result-box">
+        <h3>小分類</h3>
+        <p id="subpredictionResult">結果を読み込み中です...</p>
+      </div>
+
+      <div class="notice-box">
+        <p>
+          ※ この結果は機械学習モデルによるカテゴリ予測です。<br />
+          実際の人物評価を目的とするものではありません。
+        </p>
+      </div>
+
+      <div class="button-area">
+        <button id="retryButton" class="secondary-button">もう一度試す</button>
+        <button id="backTopButton" class="primary-button">トップへ戻る</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/result.js"></script>
+</body>
+</html>
