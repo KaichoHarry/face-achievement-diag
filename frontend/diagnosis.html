@@ -6,16 +6,18 @@
   <title>偉業予測AI - 診断</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body>
+<body class="page-diagnosis">
   <header class="site-header">
     <h1 class="site-title">偉業予測AI</h1>
   </header>
 
   <main class="container">
-    <section class="card">
+    <section class="card diagnosis-card">
       <h2>診断画面</h2>
+
       <p class="description">
-        顔画像を選択し、「診断する」ボタンを押してください。
+        顔画像を選択して、「診断する」ボタンを押してください。<br />
+        選択した画像は下にプレビュー表示されます。
       </p>
 
       <div class="form-group">
@@ -25,7 +27,12 @@
 
       <div class="preview-area">
         <p>画像プレビュー</p>
-        <img id="previewImage" class="preview-image hidden" alt="選択した画像のプレビュー" />
+        <img
+          id="previewImage"
+          class="preview-image hidden"
+          src=""
+          alt="選択した画像のプレビュー"
+        />
       </div>
 
       <div class="button-area">
@@ -33,6 +40,7 @@
       </div>
 
       <div id="loadingMessage" class="loading hidden">
+        <span class="spinner"></span>
         診断中です。少々お待ちください...
       </div>
 
