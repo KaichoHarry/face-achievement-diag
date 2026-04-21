@@ -1,3 +1,6 @@
+/* =========================
+   1. 全体設定
+========================= */
 * {
   box-sizing: border-box;
 }
@@ -5,54 +8,106 @@
 body {
   margin: 0;
   font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
-  background-color: #f4f8fb;
   color: #222;
+  min-height: 100vh;
 }
 
+/* 画面ごとの背景 */
+body.page-top {
+  background: linear-gradient(180deg, #eef7ff 0%, #dcecff 100%);
+}
+
+body.page-diagnosis {
+  background: linear-gradient(180deg, #f4f8fb 0%, #eaf2f9 100%);
+}
+
+body.page-result {
+  background: linear-gradient(180deg, #f8fbff 0%, #e5f1ff 100%);
+}
+
+/* =========================
+   2. レイアウト
+========================= */
 .site-header {
-  background-color: #1f6fb2;
   color: #fff;
-  padding: 20px;
+  padding: 22px 20px;
   text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.site-title {
-  margin: 0;
-  font-size: 28px;
+/* 画面ごとのヘッダー色 */
+.page-top .site-header {
+  background: linear-gradient(135deg, #2d7bd0, #5aa6ea);
+}
+
+.page-diagnosis .site-header {
+  background: linear-gradient(135deg, #1f6fb2, #3d8ed1);
+}
+
+.page-result .site-header {
+  background: linear-gradient(135deg, #225f9c, #4f91cf);
 }
 
 .container {
   width: 90%;
-  max-width: 800px;
+  max-width: 860px;
   margin: 40px auto;
 }
 
 .card {
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 18px;
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(31, 111, 178, 0.12);
+  animation: fadeUp 0.8s ease;
+}
+
+/* 画面ごとのカード雰囲気 */
+.top-card {
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+  border: 1px solid #d7e9fb;
+}
+
+.diagnosis-card {
+  background: #ffffff;
+  border: 1px solid #dce6ef;
+}
+
+.result-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #d3e4f6;
 }
 
 .hero-card {
   text-align: center;
 }
 
+/* =========================
+   3. 文字
+========================= */
+.site-title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 28px;
+  color: #18334d;
+}
+
+h3 {
+  margin-top: 0;
+  color: #1f4f79;
+}
+
 .description {
   line-height: 1.8;
   margin-bottom: 20px;
-}
-
-.notice-box {
-  background-color: #eef6fc;
-  border-left: 5px solid #1f6fb2;
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 8px;
-}
-
-.form-group {
-  margin: 20px 0;
+  color: #334;
 }
 
 .form-label {
@@ -61,19 +116,133 @@ body {
   margin-bottom: 8px;
 }
 
-.preview-area {
-  margin: 20px 0;
+/* トップ画面だけ少し印象を強く */
+.page-top h2 {
+  font-size: 32px;
+  color: #175788;
+}
+
+.page-top .description {
+  font-size: 16px;
+}
+
+/* 結果画面は結果文字を見せたいので控えめ */
+.page-result h2 {
   text-align: center;
+}
+
+/* =========================
+   4. フォーム・画像・結果欄
+========================= */
+.form-group {
+  margin: 20px 0;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c9d8e6;
+  border-radius: 12px;
+  background-color: #fdfefe;
+  font-size: 14px;
+}
+
+input[type="file"]:hover {
+  background-color: #f7fbff;
+}
+
+.notice-box {
+  background-color: #eef6fc;
+  border-left: 5px solid #1f6fb2;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 12px;
+  line-height: 1.7;
+}
+
+/* 画面別 notice */
+.page-top .notice-box {
+  background: #f3f9ff;
+  border-left-color: #2d7bd0;
+}
+
+.page-result .notice-box {
+  background: #eef5ff;
+  border-left-color: #4f91cf;
+}
+
+.preview-area {
+  margin: 28px 0 20px;
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed #c9d8e6;
+  border-radius: 16px;
+  background: #fbfdff;
+}
+
+/* 診断画面らしさを強める */
+.page-diagnosis .preview-area {
+  background: linear-gradient(180deg, #fcfeff 0%, #f4f9fd 100%);
 }
 
 .preview-image {
   max-width: 100%;
   max-height: 300px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #d5dde6;
+  border-radius: 12px;
   margin-top: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  animation: previewFade 0.5s ease;
 }
 
+.result-box {
+  background-color: #f8fbff;
+  border: 1px solid #cfe2f3;
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUpBox 0.6s ease forwards;
+}
+
+.result-box:nth-of-type(1) {
+  animation-delay: 0.2s;
+}
+
+.result-box:nth-of-type(2) {
+  animation-delay: 0.45s;
+}
+
+/* 結果画面だけ結果欄を少し強調 */
+.page-result .result-box {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f9ff 100%);
+  border: 1px solid #bcd8f1;
+  box-shadow: 0 6px 18px rgba(79, 145, 207, 0.12);
+}
+
+.page-result .result-box p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #173f63;
+}
+
+/* トップ画面の導入エリア */
+.top-card::before {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #7bb8f1, #2d7bd0);
+  box-shadow: 0 8px 18px rgba(45, 123, 208, 0.25);
+}
+
+/* =========================
+   5. ボタン
+========================= */
 .button-area {
   display: flex;
   gap: 12px;
@@ -85,28 +254,65 @@ body {
 .primary-button,
 .secondary-button {
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px 24px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .primary-button {
   background-color: #1f6fb2;
-  color: white;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(31, 111, 178, 0.2);
+}
+
+.secondary-button {
+  background-color: #d9e7f4;
+  color: #1f3550;
+  box-shadow: 0 4px 12px rgba(60, 90, 120, 0.12);
+}
+
+/* トップ画面の開始ボタンを少し強調 */
+.page-top .primary-button {
+  background: linear-gradient(135deg, #2d7bd0, #4f9ae0);
+  padding: 14px 32px;
+  font-size: 17px;
+}
+
+/* 結果画面のボタンは少し落ち着かせる */
+.page-result .primary-button {
+  background: linear-gradient(135deg, #225f9c, #4f91cf);
+}
+
+/* =========================
+   6. 状態変化
+========================= */
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
 .primary-button:hover {
   background-color: #175788;
 }
 
-.secondary-button {
-  background-color: #d9e7f4;
-  color: #1f3550;
-}
-
 .secondary-button:hover {
   background-color: #bfd7ec;
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: translateY(1px);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .loading {
@@ -123,29 +329,96 @@ body {
   text-align: center;
 }
 
-.result-box {
-  background-color: #f8fbff;
-  border: 1px solid #cfe2f3;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-}
-
 .hidden {
   display: none;
 }
 
+/* =========================
+   7. アニメーション
+========================= */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 3px solid #bcd4ea;
+  border-top: 3px solid #1f6fb2;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes previewFade {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUpBox {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   8. レスポンシブ
+========================= */
 @media (max-width: 600px) {
   .site-title {
     font-size: 22px;
   }
 
+  h2 {
+    font-size: 24px;
+  }
+
+  .page-top h2 {
+    font-size: 27px;
+  }
+
+  .container {
+    width: 92%;
+    margin: 24px auto;
+  }
+
   .card {
     padding: 20px;
+    border-radius: 14px;
   }
 
   .primary-button,
   .secondary-button {
     width: 100%;
+  }
+
+  .preview-image {
+    max-height: 220px;
+  }
+
+  .page-result .result-box p {
+    font-size: 18px;
   }
 }
