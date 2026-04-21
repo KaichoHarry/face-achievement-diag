@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  background-color: #f4f8fb;
+  color: #222;
+}
+
+.site-header {
+  background-color: #1f6fb2;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.hero-card {
+  text-align: center;
+}
+
+.description {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.notice-box {
+  background-color: #eef6fc;
+  border-left: 5px solid #1f6fb2;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin: 20px 0;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.preview-area {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.button-area {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.primary-button,
+.secondary-button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.primary-button {
+  background-color: #1f6fb2;
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: #175788;
+}
+
+.secondary-button {
+  background-color: #d9e7f4;
+  color: #1f3550;
+}
+
+.secondary-button:hover {
+  background-color: #bfd7ec;
+}
+
+.loading {
+  margin-top: 20px;
+  color: #1f6fb2;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-message {
+  margin-top: 20px;
+  color: #c0392b;
+  font-weight: bold;
+  text-align: center;
+}
+
+.result-box {
+  background-color: #f8fbff;
+  border: 1px solid #cfe2f3;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .site-title {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}

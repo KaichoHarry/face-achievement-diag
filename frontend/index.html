@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>顔面偉業診断 - テスト</title>
+      <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>偉業予測AI - 診断</title>
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
     <h1>Face Achievement Diagnosis</h1>
     <p>澁谷くん、ここからフロントエンドの開発をスタートしてください！</p>
+  <header class="site-header">
+    <h1 class="site-title">偉業予測AI</h1>
+  </header>
+
+  <main class="container">
+    <section class="card hero-card">
+      <h2>顔画像から偉業カテゴリを予測するWebアプリ</h2>
+      <p class="description">
+        顔画像をアップロードすると、学習済みモデルが
+        偉業カテゴリを予測して表示します。
+      </p>
+
+      <div class="notice-box">
+        <p>
+          ※ このアプリは研究・学習目的のデモです。<br />
+          表示結果は参考情報であり、人物の評価を断定するものではありません。
+        </p>
+      </div>
+
+      <div class="button-area">
+        <button id="startButton" class="primary-button">診断を始める</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/index.js"></script>
 </body>
 </html>

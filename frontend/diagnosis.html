@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>偉業予測AI - 診断</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">偉業予測AI</h1>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>診断画面</h2>
+      <p class="description">
+        顔画像を選択し、「診断する」ボタンを押してください。
+      </p>
+
+      <div class="form-group">
+        <label for="imageInput" class="form-label">顔画像を選択</label>
+        <input type="file" id="imageInput" accept="image/*" />
+      </div>
+
+      <div class="preview-area">
+        <p>画像プレビュー</p>
+        <img id="previewImage" class="preview-image hidden" alt="選択した画像のプレビュー" />
+      </div>
+
+      <div class="button-area">
+        <button id="predictButton" class="primary-button">診断する</button>
+      </div>
+
+      <div id="loadingMessage" class="loading hidden">
+        診断中です。少々お待ちください...
+      </div>
+
+      <div id="errorMessage" class="error-message hidden"></div>
+    </section>
+  </main>
+
+  <script src="./js/diagnosis.js"></script>
+</body>
+</html>
