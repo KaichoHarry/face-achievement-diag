@@ -6,35 +6,58 @@
   <title>偉業予測AI - 結果</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body class="page-result">
+  <div class="app-bg-decoration"></div>
+
   <header class="site-header">
-    <h1 class="site-title">偉業予測AI</h1>
+    <div class="header-inner">
+      <div class="logo-mark">AI</div>
+      <h1 class="site-title">偉業予測AI</h1>
+    </div>
   </header>
 
   <main class="container">
     <section class="card result-card">
-      <h2>診断結果</h2>
-
-      <div class="result-box">
-        <h3>大分類</h3>
-        <p id="predictionResult">結果を読み込み中です...</p>
+      <div class="result-title-area">
+        <h2>診断結果</h2>
+        <span class="title-underline"></span>
       </div>
 
-      <div class="result-box">
-        <h3>小分類</h3>
-        <p id="subpredictionResult">結果を読み込み中です...</p>
+      <div class="result-grid">
+        <div class="result-box">
+          <div class="result-box-header">
+            <span class="result-icon">▦</span>
+            <h3>大分類</h3>
+          </div>
+          <p id="predictionResult">結果を読み込み中です...</p>
+        </div>
+
+        <div class="result-box">
+          <div class="result-box-header">
+            <span class="result-icon">▤</span>
+            <h3>小分類</h3>
+          </div>
+          <p id="subpredictionResult">結果を読み込み中です...</p>
+        </div>
       </div>
 
-      <div class="notice-box">
+      <div class="notice-box result-notice">
+        <span class="notice-icon">i</span>
         <p>
           ※ この結果は機械学習モデルによるカテゴリ予測です。<br />
           実際の人物評価を目的とするものではありません。
         </p>
       </div>
 
-      <div class="button-area">
-        <button id="retryButton" class="secondary-button">もう一度試す</button>
-        <button id="backTopButton" class="primary-button">トップへ戻る</button>
+      <div class="button-area result-buttons">
+        <button id="retryButton" class="secondary-button">
+          ↻ もう一度試す
+        </button>
+
+        <button id="backTopButton" class="primary-button">
+          ⌂ トップへ戻る
+        </button>
       </div>
     </section>
   </main>
