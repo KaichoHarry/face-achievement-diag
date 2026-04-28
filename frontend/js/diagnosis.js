@@ -16,9 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let selectedFile = null;
 
-  // =========================
-  // エラー表示
-  // =========================
   function showError(message) {
     if (!errorMessage) return;
 
@@ -33,23 +30,20 @@ document.addEventListener("DOMContentLoaded", () => {
     errorMessage.classList.add("hidden");
   }
 
-  // =========================
-  // ローディング表示
-  // =========================
   function setLoading(isLoading) {
     if (loadingMessage) {
       loadingMessage.classList.toggle("hidden", !isLoading);
     }
 
     predictButton.disabled = isLoading;
-    predictButton.innerHTML = isLoading
-      ? "診断中..."
-      : '診断する <span>›</span>';
+
+    if (isLoading) {
+      predictButton.textContent = "診断中...";
+    } else {
+      predictButton.innerHTML = '診断する <span>›</span>';
+    }
   }
 
-  // =========================
-  // ファイルチェック
-  // =========================
   function validateFile(file) {
     if (!file) {
       return "画像を選択してください。";
@@ -68,9 +62,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   }
 
-  // =========================
-  // プレビュー表示
-  // =========================
+  function resetPreview() {
+    selectedFile = null;
+    previewImage.src = "";
+    previewImage.classList.add("hidden");
+
+    if (previewPlaceholder) {
+      previewPlaceholder.classList.remove("hidden");
+    }
+
+    if (uploadBox) {
+      uploadBox.classList.remove("is-selected");
+    }
+
+    if (uploadHelp) {
+      uploadHelp.innerHTML = `
+        またはドラッグ＆ドロップ<br />
+        <small>JPG / PNG に対応</small>
+      `;
+    }
+  }
+
   function showPreview(file) {
     const reader = new FileReader();
 
@@ -97,9 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  // =========================
-  // ファイル選択時
-  // =========================
   imageInput.addEventListener("change", () => {
     clearError();
 
@@ -107,14 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const error = validateFile(file);
 
     if (error) {
-      selectedFile = null;
-      previewImage.src = "";
-      previewImage.classList.add("hidden");
-
-      if (previewPlaceholder) {
-        previewPlaceholder.classList.remove("hidden");
-      }
-
+      resetPreview();
       showError(error);
       return;
     }
@@ -123,9 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showPreview(file);
   });
 
-  // =========================
-  // ドラッグ＆ドロップ対応
-  // =========================
   if (uploadBox) {
     uploadBox.addEventListener("dragover", (event) => {
       event.preventDefault();
@@ -146,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clearError();
 
       if (error) {
+        resetPreview();
         showError(error);
         return;
       }
@@ -160,9 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =========================
-  // 診断ボタン
-  // =========================
   predictButton.addEventListener("click", async () => {
     clearError();
 
@@ -178,11 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       /*
-        ===============================
-        仮実装版
-        ===============================
-        現在はバックエンド接続なしで動くようにしています。
-        1秒後に仮の診断結果を保存して result.html に移動します。
+        仮実装版です。
+        バックエンド未接続でも結果画面を確認できるようにしています。
       */
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -197,11 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "./result.html";
 
       /*
-        ===============================
-        本番接続版にする場合
-        ===============================
-        FastAPIなどのバックエンドに画像を送る場合は、
-        上の仮実装を消して、下のコードを使ってください。
+        FastAPIなどのバックエンドに接続する場合は、
+        上の仮実装を削除して、下のコードを使ってください。
 
         const formData = new FormData();
         formData.append("file", file);
