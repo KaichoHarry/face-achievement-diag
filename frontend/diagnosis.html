@@ -6,27 +6,56 @@
   <title>偉業予測AI - 診断</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body class="page-diagnosis">
+  <div class="app-bg-decoration"></div>
+
   <header class="site-header">
-    <h1 class="site-title">偉業予測AI</h1>
+    <div class="header-inner">
+      <div class="logo-mark">AI</div>
+      <h1 class="site-title">偉業予測AI</h1>
+    </div>
   </header>
 
   <main class="container">
     <section class="card diagnosis-card">
-      <h2>診断画面</h2>
+      <div class="page-heading-row">
+        <div class="page-icon">◎</div>
 
-      <p class="description">
-        顔画像を選択して、「診断する」ボタンを押してください。<br />
-        選択した画像は下にプレビュー表示されます。
-      </p>
+        <div>
+          <h2>診断画面</h2>
+          <p class="description">
+            顔画像を選択して、「診断する」ボタンを押してください。<br />
+            選択した画像は下にプレビュー表示されます。
+          </p>
+        </div>
+      </div>
 
       <div class="form-group">
-        <label for="imageInput" class="form-label">顔画像を選択</label>
+        <label class="form-label">顔画像を選択</label>
+
+        <label for="imageInput" class="upload-box">
+          <span class="upload-icon">☁</span>
+
+          <span class="upload-button-text">ファイルを選択</span>
+
+          <span class="upload-help">
+            またはドラッグ＆ドロップ<br />
+            <small>JPG / PNG に対応</small>
+          </span>
+        </label>
+
         <input type="file" id="imageInput" accept="image/*" />
       </div>
 
+      <div class="preview-label">画像プレビュー</div>
+
       <div class="preview-area">
-        <p>画像プレビュー</p>
+        <div class="preview-placeholder">
+          <span class="preview-placeholder-icon">▧</span>
+          <p>ここにプレビューが表示されます</p>
+        </div>
+
         <img
           id="previewImage"
           class="preview-image hidden"
@@ -36,8 +65,13 @@
       </div>
 
       <div class="button-area">
-        <button id="predictButton" class="primary-button">診断する</button>
+        <button id="predictButton" class="primary-button wide-button">
+          診断する
+          <span>›</span>
+        </button>
       </div>
+
+      <p class="secure-text">🔒 画像は安全に処理され、保存されません。</p>
 
       <div id="loadingMessage" class="loading hidden">
         <span class="spinner"></span>

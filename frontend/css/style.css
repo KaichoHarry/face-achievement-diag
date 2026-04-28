@@ -5,302 +5,481 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #0f4fd6;
+  --primary-dark: #0b3da8;
+  --primary-light: #eaf2ff;
+  --text-main: #071226;
+  --text-sub: #334155;
+  --border: #d6e4f5;
+  --bg: #f4f8ff;
+  --white: #ffffff;
+  --shadow: 0 18px 45px rgba(15, 79, 214, 0.12);
+}
+
+html {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
-  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
-  color: #222;
   min-height: 100vh;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top right, rgba(74, 144, 255, 0.10), transparent 32%),
+    linear-gradient(180deg, #f8fbff 0%, #edf5ff 100%);
+  overflow-x: hidden;
+  position: relative;
 }
 
-/* 画面ごとの背景 */
-body.page-top {
-  background: linear-gradient(180deg, #eef7ff 0%, #dcecff 100%);
+/* 左側の薄い斜め装飾 */
+.app-bg-decoration {
+  position: fixed;
+  top: 76px;
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 76px);
+  background:
+    linear-gradient(145deg, rgba(45, 123, 208, 0.12), rgba(255, 255, 255, 0.15)),
+    linear-gradient(180deg, rgba(235, 244, 255, 0.9), rgba(219, 234, 254, 0.5));
+  clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+  z-index: -2;
 }
 
-body.page-diagnosis {
-  background: linear-gradient(180deg, #f4f8fb 0%, #eaf2f9 100%);
-}
-
-body.page-result {
-  background: linear-gradient(180deg, #f8fbff 0%, #e5f1ff 100%);
+.app-bg-decoration::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 4px, transparent 5px),
+    linear-gradient(35deg, transparent 0 45%, rgba(255, 255, 255, 0.55) 46% 47%, transparent 48%),
+    linear-gradient(125deg, transparent 0 48%, rgba(255, 255, 255, 0.55) 49% 50%, transparent 51%);
+  background-size: 88px 88px, 120px 120px, 140px 140px;
+  opacity: 0.65;
 }
 
 /* =========================
-   2. レイアウト
+   2. ヘッダー
 ========================= */
 .site-header {
+  width: 100%;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.header-inner {
+  width: min(1500px, calc(100% - 72px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 35% 25%, #6fb1ff, #0f4fd6 68%);
   color: #fff;
-  padding: 22px 20px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  box-shadow: 0 8px 18px rgba(15, 79, 214, 0.22);
 }
 
-/* 画面ごとのヘッダー色 */
-.page-top .site-header {
-  background: linear-gradient(135deg, #2d7bd0, #5aa6ea);
-}
-
-.page-diagnosis .site-header {
-  background: linear-gradient(135deg, #1f6fb2, #3d8ed1);
-}
-
-.page-result .site-header {
-  background: linear-gradient(135deg, #225f9c, #4f91cf);
-}
-
-.container {
-  width: 90%;
-  max-width: 860px;
-  margin: 40px auto;
-}
-
-.card {
-  background-color: #fff;
-  border-radius: 18px;
-  padding: 30px;
-  box-shadow: 0 8px 24px rgba(31, 111, 178, 0.12);
-  animation: fadeUp 0.8s ease;
-}
-
-/* 画面ごとのカード雰囲気 */
-.top-card {
-  text-align: center;
-  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-  border: 1px solid #d7e9fb;
-}
-
-.diagnosis-card {
-  background: #ffffff;
-  border: 1px solid #dce6ef;
-}
-
-.result-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  border: 1px solid #d3e4f6;
-}
-
-.hero-card {
-  text-align: center;
-}
-
-/* =========================
-   3. 文字
-========================= */
 .site-title {
   margin: 0;
   font-size: 28px;
+  font-weight: 900;
   letter-spacing: 0.04em;
-}
-
-h2 {
-  margin-top: 0;
-  margin-bottom: 14px;
-  font-size: 28px;
-  color: #18334d;
-}
-
-h3 {
-  margin-top: 0;
-  color: #1f4f79;
-}
-
-.description {
-  line-height: 1.8;
-  margin-bottom: 20px;
-  color: #334;
-}
-
-.form-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-/* トップ画面だけ少し印象を強く */
-.page-top h2 {
-  font-size: 32px;
-  color: #175788;
-}
-
-.page-top .description {
-  font-size: 16px;
-}
-
-/* 結果画面は結果文字を見せたいので控えめ */
-.page-result h2 {
-  text-align: center;
+  color: var(--text-main);
 }
 
 /* =========================
-   4. フォーム・画像・結果欄
+   3. 共通レイアウト
+========================= */
+.container {
+  width: min(1120px, calc(100% - 48px));
+  margin: 48px auto 64px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(214, 228, 245, 0.9);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.65s ease both;
+}
+
+.top-card {
+  padding: 72px 76px;
+}
+
+.diagnosis-card,
+.result-card {
+  padding: 54px 60px 48px;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 42px;
+  align-items: start;
+}
+
+.hero-icon,
+.page-icon {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #edf5ff, #dfeeff);
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 1px rgba(15, 79, 214, 0.08);
+}
+
+.page-heading-row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 34px;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   4. 文字
+========================= */
+h2 {
+  margin: 0 0 24px;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  font-weight: 900;
+}
+
+.diagnosis-card h2 {
+  font-size: clamp(34px, 4vw, 52px);
+  margin-bottom: 14px;
+}
+
+.result-card h2 {
+  font-size: clamp(34px, 4vw, 48px);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--text-main);
+}
+
+.description {
+  margin: 0 0 14px;
+  color: var(--text-sub);
+  font-size: 18px;
+  line-height: 2;
+  font-weight: 600;
+}
+
+.form-label,
+.preview-label {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text-main);
+  margin-bottom: 14px;
+}
+
+/* =========================
+   5. 注意書き
+========================= */
+.notice-box {
+  margin: 34px 0 38px;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(180deg, #f1f7ff 0%, #eaf2ff 100%);
+  border: 1px solid #cfe0fb;
+  border-left: 7px solid var(--primary);
+  border-radius: 14px;
+}
+
+.notice-box p {
+  margin: 0;
+  color: #0a3c94;
+  font-size: 18px;
+  line-height: 1.8;
+  font-weight: 700;
+}
+
+.notice-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border: 3px solid var(--primary);
+  color: var(--primary);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-family: Arial, sans-serif;
+}
+
+/* =========================
+   6. アップロード画面
 ========================= */
 .form-group {
-  margin: 20px 0;
+  margin: 30px 0 24px;
 }
 
 input[type="file"] {
+  display: none;
+}
+
+.upload-box {
+  min-height: 116px;
   width: 100%;
-  padding: 12px;
-  border: 1px solid #c9d8e6;
-  border-radius: 12px;
-  background-color: #fdfefe;
-  font-size: 14px;
+  border: 2px dashed #6da2ff;
+  border-radius: 16px;
+  background: rgba(248, 251, 255, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 26px;
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
-input[type="file"]:hover {
-  background-color: #f7fbff;
+.upload-box:hover {
+  background: #f1f7ff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
 }
 
-.notice-box {
-  background-color: #eef6fc;
-  border-left: 5px solid #1f6fb2;
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 12px;
-  line-height: 1.7;
+.upload-icon {
+  font-size: 44px;
+  color: var(--primary);
+  line-height: 1;
 }
 
-/* 画面別 notice */
-.page-top .notice-box {
-  background: #f3f9ff;
-  border-left-color: #2d7bd0;
+.upload-button-text {
+  min-width: 210px;
+  padding: 16px 28px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  color: var(--primary);
+  background: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
 }
 
-.page-result .notice-box {
-  background: #eef5ff;
-  border-left-color: #4f91cf;
+.upload-help {
+  color: var(--text-sub);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+.upload-help small {
+  color: #64748b;
+  font-size: 15px;
 }
 
 .preview-area {
-  margin: 28px 0 20px;
-  text-align: center;
-  padding: 20px;
-  border: 2px dashed #c9d8e6;
+  min-height: 180px;
+  border: 2px dashed #cbd8ea;
   border-radius: 16px;
-  background: #fbfdff;
+  background: rgba(255, 255, 255, 0.76);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* 診断画面らしさを強める */
-.page-diagnosis .preview-area {
-  background: linear-gradient(180deg, #fcfeff 0%, #f4f9fd 100%);
+.preview-placeholder {
+  color: #94a3b8;
+  text-align: center;
+}
+
+.preview-placeholder-icon {
+  display: block;
+  font-size: 64px;
+  margin-bottom: 8px;
+}
+
+.preview-placeholder p {
+  margin: 0;
+  font-weight: 700;
 }
 
 .preview-image {
   max-width: 100%;
-  max-height: 300px;
-  border: 1px solid #d5dde6;
-  border-radius: 12px;
-  margin-top: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  animation: previewFade 0.5s ease;
+  max-height: 340px;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+  animation: previewFade 0.45s ease both;
+  position: relative;
+  z-index: 2;
 }
 
-.result-box {
-  background-color: #f8fbff;
-  border: 1px solid #cfe2f3;
-  border-radius: 14px;
-  padding: 22px;
-  margin-top: 20px;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUpBox 0.6s ease forwards;
+.preview-image:not(.hidden) + .preview-placeholder,
+.preview-area:has(.preview-image:not(.hidden)) .preview-placeholder {
+  display: none;
 }
 
-.result-box:nth-of-type(1) {
-  animation-delay: 0.2s;
-}
-
-.result-box:nth-of-type(2) {
-  animation-delay: 0.45s;
-}
-
-/* 結果画面だけ結果欄を少し強調 */
-.page-result .result-box {
-  background: linear-gradient(180deg, #ffffff 0%, #f3f9ff 100%);
-  border: 1px solid #bcd8f1;
-  box-shadow: 0 6px 18px rgba(79, 145, 207, 0.12);
-}
-
-.page-result .result-box p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-  color: #173f63;
-}
-
-/* トップ画面の導入エリア */
-.top-card::before {
-  content: "";
-  display: block;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #7bb8f1, #2d7bd0);
-  box-shadow: 0 8px 18px rgba(45, 123, 208, 0.25);
+.secure-text {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 18px 0 0;
 }
 
 /* =========================
-   5. ボタン
+   7. 結果画面
+========================= */
+.result-title-area {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.title-underline {
+  display: inline-block;
+  width: 72px;
+  height: 5px;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.result-box {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid #c9dcfa;
+  border-radius: 18px;
+  padding: 36px 26px;
+  text-align: center;
+  box-shadow: 0 12px 26px rgba(15, 79, 214, 0.08);
+  animation: fadeUpBox 0.55s ease both;
+}
+
+.result-box:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.result-box-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.result-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.result-box p {
+  margin: 0;
+  color: var(--primary);
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  word-break: break-word;
+}
+
+.result-notice {
+  margin-top: 24px;
+}
+
+/* =========================
+   8. ボタン
 ========================= */
 .button-area {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-top: 24px;
+  align-items: center;
+  gap: 22px;
+}
+
+.button-area.center {
+  justify-content: center;
 }
 
 .primary-button,
 .secondary-button {
+  min-width: 250px;
+  min-height: 64px;
+  border-radius: 12px;
+  padding: 0 34px;
   border: none;
-  border-radius: 10px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  transition: 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
 }
 
 .primary-button {
-  background-color: #1f6fb2;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(31, 111, 178, 0.2);
-}
-
-.secondary-button {
-  background-color: #d9e7f4;
-  color: #1f3550;
-  box-shadow: 0 4px 12px rgba(60, 90, 120, 0.12);
-}
-
-/* トップ画面の開始ボタンを少し強調 */
-.page-top .primary-button {
-  background: linear-gradient(135deg, #2d7bd0, #4f9ae0);
-  padding: 14px 32px;
-  font-size: 17px;
-}
-
-/* 結果画面のボタンは少し落ち着かせる */
-.page-result .primary-button {
-  background: linear-gradient(135deg, #225f9c, #4f91cf);
-}
-
-/* =========================
-   6. 状態変化
-========================= */
-.primary-button:hover,
-.secondary-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, #155ee8 0%, #0b3da8 100%);
+  box-shadow: 0 10px 24px rgba(15, 79, 214, 0.28);
 }
 
 .primary-button:hover {
-  background-color: #175788;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 79, 214, 0.34);
+}
+
+.secondary-button {
+  color: var(--primary);
+  background: #fff;
+  border: 2px solid var(--primary);
 }
 
 .secondary-button:hover {
-  background-color: #bfd7ec;
+  color: #fff;
+  background: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 79, 214, 0.18);
 }
 
 .primary-button:active,
@@ -312,47 +491,61 @@ input[type="file"]:hover {
 .secondary-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
   box-shadow: none;
 }
 
+.wide-button {
+  width: 100%;
+  justify-content: center;
+}
+
+.result-buttons {
+  margin-top: 34px;
+}
+
+/* =========================
+   9. 状態表示
+========================= */
 .loading {
-  margin-top: 20px;
-  color: #1f6fb2;
-  font-weight: bold;
+  margin-top: 24px;
+  color: var(--primary);
+  font-weight: 900;
   text-align: center;
 }
 
 .error-message {
   margin-top: 20px;
-  color: #c0392b;
-  font-weight: bold;
+  color: #dc2626;
+  font-weight: 900;
   text-align: center;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* =========================
-   7. アニメーション
-========================= */
 .spinner {
   display: inline-block;
   width: 18px;
   height: 18px;
   margin-right: 8px;
   border: 3px solid #bcd4ea;
-  border-top: 3px solid #1f6fb2;
+  border-top: 3px solid var(--primary);
   border-radius: 50%;
   vertical-align: middle;
   animation: spin 0.8s linear infinite;
 }
 
+/* =========================
+   10. アニメーション
+========================= */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -364,6 +557,7 @@ input[type="file"]:hover {
     opacity: 0;
     transform: scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -371,6 +565,11 @@ input[type="file"]:hover {
 }
 
 @keyframes fadeUpBox {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -384,41 +583,102 @@ input[type="file"]:hover {
 }
 
 /* =========================
-   8. レスポンシブ
+   11. レスポンシブ
 ========================= */
-@media (max-width: 600px) {
-  .site-title {
-    font-size: 22px;
+@media (max-width: 900px) {
+  .hero-layout,
+  .page-heading-row {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    text-align: center;
   }
 
-  h2 {
-    font-size: 24px;
+  .hero-icon,
+  .page-icon {
+    margin: 0 auto;
   }
 
-  .page-top h2 {
-    font-size: 27px;
+  .top-card,
+  .diagnosis-card,
+  .result-card {
+    padding: 42px 28px;
   }
 
-  .container {
-    width: 92%;
-    margin: 24px auto;
+  .result-grid {
+    grid-template-columns: 1fr;
   }
 
-  .card {
-    padding: 20px;
-    border-radius: 14px;
+  .upload-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .result-buttons {
+    flex-direction: column;
   }
 
   .primary-button,
   .secondary-button {
     width: 100%;
   }
+}
 
-  .preview-image {
-    max-height: 220px;
+@media (max-width: 600px) {
+  .app-bg-decoration {
+    width: 120px;
+    opacity: 0.45;
   }
 
-  .page-result .result-box p {
-    font-size: 18px;
+  .site-header {
+    height: 68px;
+  }
+
+  .header-inner {
+    width: calc(100% - 32px);
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 11px;
+  }
+
+  .site-title {
+    font-size: 22px;
+  }
+
+  .container {
+    width: calc(100% - 28px);
+    margin: 28px auto 48px;
+  }
+
+  h2,
+  .diagnosis-card h2,
+  .result-card h2 {
+    font-size: 30px;
+  }
+
+  .description,
+  .notice-box p {
+    font-size: 15px;
+  }
+
+  .notice-box {
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .upload-button-text {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .result-box p {
+    font-size: 38px;
+  }
+
+  .pc-only {
+    display: none;
   }
 }
