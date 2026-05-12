@@ -12,7 +12,16 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <div class="logo-mark">AI</div>
+      <div class="app-logo" aria-hidden="true">
+        <svg viewBox="0 0 64 64">
+          <path class="logo-head" d="M29 6C17.4 6 8 15.4 8 27c0 7.2 3.6 13.6 9.1 17.4V56h22v-8h6.4c2.5 0 4.5-2 4.5-4.5v-6.8l5.2-2.6-5.2-8.7C49.2 14.5 40.4 6 29 6z" />
+          <circle cx="25" cy="20" r="3" />
+          <circle cx="36" cy="18" r="3" />
+          <circle cx="33" cy="31" r="3" />
+          <path class="logo-line" d="M25 20L36 18M36 18L33 31M25 20L33 31" />
+        </svg>
+      </div>
+
       <h1 class="site-title">偉業予測AI</h1>
     </div>
   </header>
@@ -20,10 +29,27 @@
   <main class="container">
     <section class="card hero-card top-card">
       <div class="hero-layout">
-        <div class="hero-icon">◎</div>
+        <div class="face-icon-large" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <!-- 外側の認識フレーム -->
+            <path class="frame-path" d="M24 18h-8v8" />
+            <path class="frame-path" d="M56 18h8v8" />
+            <path class="frame-path" d="M16 54v8h8" />
+            <path class="frame-path" d="M64 54v8h-8" />
+
+            <!-- 人の顔 -->
+            <circle class="face-path" cx="40" cy="34" r="12" />
+
+            <!-- 肩・体 -->
+            <path class="face-path" d="M22 64c2.8-11 10-17 18-17s15.2 6 18 17" />
+          </svg>
+        </div>
 
         <div class="hero-content">
-          <h2>顔画像から偉業カテゴリを<br class="pc-only" />予測するWebアプリ</h2>
+          <h2>
+            顔画像から偉業カテゴリを<br class="pc-only" />
+            予測するWebアプリ
+          </h2>
 
           <p class="description">
             本アプリは研究・学習目的のデモです。

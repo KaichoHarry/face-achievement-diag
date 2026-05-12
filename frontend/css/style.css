@@ -11,14 +11,18 @@
   --primary-light: #eaf2ff;
   --text-main: #071226;
   --text-sub: #334155;
+  --text-muted: #64748b;
   --border: #d6e4f5;
   --bg: #f4f8ff;
   --white: #ffffff;
   --shadow: 0 18px 45px rgba(15, 79, 214, 0.12);
 }
 
-html {
+html,
+body {
+  width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -27,22 +31,23 @@ body {
   font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
   color: var(--text-main);
   background:
-    radial-gradient(circle at top right, rgba(74, 144, 255, 0.10), transparent 32%),
+    radial-gradient(circle at top right, rgba(74, 144, 255, 0.12), transparent 34%),
     linear-gradient(180deg, #f8fbff 0%, #edf5ff 100%);
-  overflow-x: hidden;
   position: relative;
 }
 
-/* 左側の薄い斜め装飾 */
+/* =========================
+   2. 背景装飾
+========================= */
 .app-bg-decoration {
   position: fixed;
   top: 76px;
   left: 0;
-  width: 260px;
+  width: 280px;
   height: calc(100vh - 76px);
   background:
-    linear-gradient(145deg, rgba(45, 123, 208, 0.12), rgba(255, 255, 255, 0.15)),
-    linear-gradient(180deg, rgba(235, 244, 255, 0.9), rgba(219, 234, 254, 0.5));
+    linear-gradient(145deg, rgba(45, 123, 208, 0.13), rgba(255, 255, 255, 0.16)),
+    linear-gradient(180deg, rgba(235, 244, 255, 0.95), rgba(219, 234, 254, 0.55));
   clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
   z-index: -2;
 }
@@ -52,22 +57,23 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 4px, transparent 5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.95) 0 4px, transparent 5px),
     linear-gradient(35deg, transparent 0 45%, rgba(255, 255, 255, 0.55) 46% 47%, transparent 48%),
     linear-gradient(125deg, transparent 0 48%, rgba(255, 255, 255, 0.55) 49% 50%, transparent 51%);
   background-size: 88px 88px, 120px 120px, 140px 140px;
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 /* =========================
-   2. ヘッダー
+   3. ヘッダー
 ========================= */
 .site-header {
   width: 100%;
   height: 76px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 18px rgba(15, 79, 214, 0.06);
   display: flex;
   align-items: center;
   position: relative;
@@ -82,19 +88,36 @@ body {
   gap: 14px;
 }
 
-.logo-mark {
-  width: 42px;
-  height: 42px;
+.app-logo {
+  width: 46px;
+  height: 46px;
   border-radius: 14px;
-  background:
-    radial-gradient(circle at 35% 25%, #6fb1ff, #0f4fd6 68%);
-  color: #fff;
+  background: linear-gradient(180deg, #4f8fff 0%, #0f4fd6 100%);
   display: grid;
   place-items: center;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.03em;
-  box-shadow: 0 8px 18px rgba(15, 79, 214, 0.22);
+  box-shadow: 0 8px 18px rgba(15, 79, 214, 0.25);
+}
+
+.app-logo svg {
+  width: 34px;
+  height: 34px;
+}
+
+.app-logo .logo-head {
+  fill: #ffffff;
+  opacity: 0.96;
+}
+
+.app-logo circle {
+  fill: #0f4fd6;
+}
+
+.app-logo .logo-line {
+  fill: none;
+  stroke: #0f4fd6;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .site-title {
@@ -106,16 +129,21 @@ body {
 }
 
 /* =========================
-   3. 共通レイアウト
+   4. 共通レイアウト
 ========================= */
 .container {
   width: min(1120px, calc(100% - 48px));
   margin: 48px auto 64px;
 }
 
+.page-diagnosis .container {
+  width: min(1000px, calc(100% - 40px));
+  margin: 44px auto 64px;
+}
+
 .card {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(214, 228, 245, 0.9);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(214, 228, 245, 0.95);
   border-radius: 24px;
   box-shadow: var(--shadow);
   animation: fadeUp 0.65s ease both;
@@ -130,6 +158,12 @@ body {
   padding: 54px 60px 48px;
 }
 
+.page-diagnosis .diagnosis-card {
+  width: 100%;
+  overflow: hidden;
+  padding: 56px 48px 48px;
+}
+
 .hero-layout {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -137,30 +171,41 @@ body {
   align-items: start;
 }
 
-.hero-icon,
-.page-icon {
-  width: 92px;
-  height: 92px;
+/* =========================
+   5. 顔認識アイコン
+========================= */
+.face-icon-large {
+  width: 116px;
+  height: 116px;
+  margin: 0 auto 28px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #edf5ff, #dfeeff);
-  color: var(--primary);
+  background: linear-gradient(180deg, #edf5ff 0%, #dcecff 100%);
+  border: 1px solid #c9dcfa;
   display: grid;
   place-items: center;
-  font-size: 42px;
-  font-weight: 900;
-  box-shadow: inset 0 0 0 1px rgba(15, 79, 214, 0.08);
+  box-shadow: 0 10px 24px rgba(15, 79, 214, 0.08);
 }
 
-.page-heading-row {
-  display: grid;
-  grid-template-columns: 92px 1fr;
-  gap: 34px;
-  align-items: start;
-  margin-bottom: 28px;
+.face-icon-large svg {
+  width: 68px;
+  height: 68px;
+}
+
+.face-icon-large .frame-path,
+.face-icon-large .face-path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.face-icon-large .face-path {
+  stroke-width: 4;
 }
 
 /* =========================
-   4. 文字
+   6. 文字
 ========================= */
 h2 {
   margin: 0 0 24px;
@@ -196,17 +241,39 @@ h3 {
   font-weight: 600;
 }
 
+.diagnosis-heading {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 44px;
+}
+
+.diagnosis-heading h2 {
+  margin: 0 0 22px;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.25;
+}
+
+.diagnosis-heading .description {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 19px;
+  line-height: 2;
+  font-weight: 700;
+}
+
 .form-label,
 .preview-label {
   display: block;
-  font-size: 18px;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto 16px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--text-main);
-  margin-bottom: 14px;
 }
 
 /* =========================
-   5. 注意書き
+   7. 注意書き
 ========================= */
 .notice-box {
   margin: 34px 0 38px;
@@ -242,7 +309,7 @@ h3 {
 }
 
 /* =========================
-   6. アップロード画面
+   8. アップロード画面
 ========================= */
 .form-group {
   margin: 30px 0 24px;
@@ -253,39 +320,73 @@ input[type="file"] {
 }
 
 .upload-box {
-  min-height: 116px;
   width: 100%;
+  max-width: 860px;
+  min-height: 138px;
+  margin: 0 auto;
+  padding: 28px 32px;
   border: 2px dashed #6da2ff;
-  border-radius: 16px;
-  background: rgba(248, 251, 255, 0.82);
+  border-radius: 18px;
+  background: rgba(248, 251, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 28px;
-  padding: 26px;
   cursor: pointer;
+  overflow: hidden;
   transition: 0.25s ease;
 }
 
-.upload-box:hover {
-  background: #f1f7ff;
+.upload-box:hover,
+.upload-box.is-dragover {
+  background: #eaf2ff;
   border-color: var(--primary);
   transform: translateY(-2px);
 }
 
+.upload-box.is-selected {
+  border-color: var(--primary);
+  background: #f1f7ff;
+}
+
 .upload-icon {
-  font-size: 44px;
-  color: var(--primary);
-  line-height: 1;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  display: grid;
+  place-items: center;
+}
+
+.upload-icon svg {
+  width: 66px;
+  height: 66px;
+}
+
+.upload-icon svg path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 4.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.upload-text-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .upload-button-text {
-  min-width: 210px;
-  padding: 16px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  min-height: 58px;
+  padding: 0 28px;
   border: 2px solid var(--primary);
-  border-radius: 10px;
-  color: var(--primary);
+  border-radius: 12px;
   background: #fff;
+  color: var(--primary);
   font-size: 20px;
   font-weight: 900;
   text-align: center;
@@ -296,35 +397,57 @@ input[type="file"] {
   font-size: 17px;
   line-height: 1.6;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .upload-help small {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 15px;
 }
 
+/* =========================
+   9. プレビュー
+========================= */
 .preview-area {
-  min-height: 180px;
+  width: 100%;
+  max-width: 860px;
+  min-height: 210px;
+  margin: 0 auto 30px;
+  padding: 28px;
   border: 2px dashed #cbd8ea;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.76);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
   display: grid;
   place-items: center;
-  padding: 24px;
-  margin-bottom: 28px;
   position: relative;
   overflow: hidden;
 }
 
 .preview-placeholder {
-  color: #94a3b8;
   text-align: center;
+  color: #94a3b8;
 }
 
 .preview-placeholder-icon {
   display: block;
-  font-size: 64px;
-  margin-bottom: 8px;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 10px;
+}
+
+.preview-placeholder-icon svg {
+  width: 76px;
+  height: 76px;
+}
+
+.preview-placeholder-icon svg rect,
+.preview-placeholder-icon svg circle,
+.preview-placeholder-icon svg path {
+  fill: none;
+  stroke: #94a3b8;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .preview-placeholder p {
@@ -336,15 +459,9 @@ input[type="file"] {
   max-width: 100%;
   max-height: 340px;
   border-radius: 16px;
+  object-fit: contain;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
   animation: previewFade 0.45s ease both;
-  position: relative;
-  z-index: 2;
-}
-
-.preview-image:not(.hidden) + .preview-placeholder,
-.preview-area:has(.preview-image:not(.hidden)) .preview-placeholder {
-  display: none;
 }
 
 .secure-text {
@@ -356,7 +473,7 @@ input[type="file"] {
 }
 
 /* =========================
-   7. 結果画面
+   10. 結果画面
 ========================= */
 .result-title-area {
   text-align: center;
@@ -379,7 +496,7 @@ input[type="file"] {
 }
 
 .result-box {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   border: 1.5px solid #c9dcfa;
   border-radius: 18px;
   padding: 36px 26px;
@@ -401,21 +518,31 @@ input[type="file"] {
 }
 
 .result-icon {
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   background: var(--primary-light);
-  color: var(--primary);
   display: grid;
   place-items: center;
-  font-size: 28px;
-  font-weight: 900;
+}
+
+.result-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.result-icon svg path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .result-box p {
   margin: 0;
   color: var(--primary);
-  font-size: clamp(38px, 5vw, 64px);
+  font-size: clamp(36px, 5vw, 64px);
   line-height: 1.1;
   font-weight: 900;
   letter-spacing: 0.02em;
@@ -427,7 +554,7 @@ input[type="file"] {
 }
 
 /* =========================
-   8. ボタン
+   11. ボタン
 ========================= */
 .button-area {
   display: flex;
@@ -446,7 +573,6 @@ input[type="file"] {
   min-height: 64px;
   border-radius: 12px;
   padding: 0 34px;
-  border: none;
   cursor: pointer;
   font-size: 20px;
   font-weight: 900;
@@ -460,6 +586,7 @@ input[type="file"] {
 
 .primary-button {
   color: #fff;
+  border: none;
   background: linear-gradient(180deg, #155ee8 0%, #0b3da8 100%);
   box-shadow: 0 10px 24px rgba(15, 79, 214, 0.28);
 }
@@ -497,6 +624,8 @@ input[type="file"] {
 
 .wide-button {
   width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   justify-content: center;
 }
 
@@ -505,7 +634,7 @@ input[type="file"] {
 }
 
 /* =========================
-   9. 状態表示
+   12. 状態表示
 ========================= */
 .loading {
   margin-top: 24px;
@@ -538,7 +667,7 @@ input[type="file"] {
 }
 
 /* =========================
-   10. アニメーション
+   13. アニメーション
 ========================= */
 @keyframes fadeUp {
   from {
@@ -583,24 +712,19 @@ input[type="file"] {
 }
 
 /* =========================
-   11. レスポンシブ
+   14. レスポンシブ
 ========================= */
 @media (max-width: 900px) {
-  .hero-layout,
-  .page-heading-row {
+  .hero-layout {
     grid-template-columns: 1fr;
     gap: 22px;
     text-align: center;
   }
 
-  .hero-icon,
-  .page-icon {
-    margin: 0 auto;
-  }
-
   .top-card,
   .diagnosis-card,
-  .result-card {
+  .result-card,
+  .page-diagnosis .diagnosis-card {
     padding: 42px 28px;
   }
 
@@ -613,6 +737,17 @@ input[type="file"] {
     text-align: center;
   }
 
+  .upload-text-group {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .upload-help {
+    white-space: normal;
+  }
+
   .result-buttons {
     flex-direction: column;
   }
@@ -620,6 +755,51 @@ input[type="file"] {
   .primary-button,
   .secondary-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-diagnosis .container {
+    width: calc(100% - 24px);
+    margin: 28px auto 48px;
+  }
+
+  .page-diagnosis .diagnosis-card {
+    padding: 36px 20px 34px;
+  }
+
+  .face-icon-large {
+    width: 96px;
+    height: 96px;
+  }
+
+  .face-icon-large svg {
+    width: 58px;
+    height: 58px;
+  }
+
+  .diagnosis-heading {
+    margin-bottom: 34px;
+  }
+
+  .diagnosis-heading h2 {
+    font-size: 34px;
+  }
+
+  .diagnosis-heading .description {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .upload-box {
+    min-height: auto;
+    padding: 26px 18px;
+    gap: 18px;
+  }
+
+  .upload-button-text {
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -637,11 +817,15 @@ input[type="file"] {
     width: calc(100% - 32px);
   }
 
-  .logo-mark {
+  .app-logo {
     width: 36px;
     height: 36px;
     border-radius: 12px;
-    font-size: 11px;
+  }
+
+  .app-logo svg {
+    width: 27px;
+    height: 27px;
   }
 
   .site-title {
@@ -657,6 +841,10 @@ input[type="file"] {
   .diagnosis-card h2,
   .result-card h2 {
     font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 
   .description,

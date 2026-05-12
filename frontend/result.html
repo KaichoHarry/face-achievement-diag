@@ -12,7 +12,16 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <div class="logo-mark">AI</div>
+      <div class="app-logo" aria-hidden="true">
+        <svg viewBox="0 0 64 64">
+          <path class="logo-head" d="M29 6C17.4 6 8 15.4 8 27c0 7.2 3.6 13.6 9.1 17.4V56h22v-8h6.4c2.5 0 4.5-2 4.5-4.5v-6.8l5.2-2.6-5.2-8.7C49.2 14.5 40.4 6 29 6z" />
+          <circle cx="25" cy="20" r="3" />
+          <circle cx="36" cy="18" r="3" />
+          <circle cx="33" cy="31" r="3" />
+          <path class="logo-line" d="M25 20L36 18M36 18L33 31M25 20L33 31" />
+        </svg>
+      </div>
+
       <h1 class="site-title">偉業予測AI</h1>
     </div>
   </header>
@@ -27,17 +36,29 @@
       <div class="result-grid">
         <div class="result-box">
           <div class="result-box-header">
-            <span class="result-icon">▦</span>
+            <span class="result-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64">
+                <path d="M28 8h8v8h-8zM12 40h10v10H12zM27 40h10v10H27zM42 40h10v10H42z" />
+                <path d="M32 16v14M17 40V30h30v10M32 30v10" />
+              </svg>
+            </span>
             <h3>大分類</h3>
           </div>
+
           <p id="predictionResult">結果を読み込み中です...</p>
         </div>
 
         <div class="result-box">
           <div class="result-box-header">
-            <span class="result-icon">▤</span>
+            <span class="result-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64">
+                <path d="M18 8h22l10 10v38H18z" />
+                <path d="M40 8v12h10M26 30h16M26 40h16" />
+              </svg>
+            </span>
             <h3>小分類</h3>
           </div>
+
           <p id="subpredictionResult">結果を読み込み中です...</p>
         </div>
       </div>
