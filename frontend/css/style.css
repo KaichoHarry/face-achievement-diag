@@ -18,8 +18,11 @@
   --shadow: 0 18px 45px rgba(15, 79, 214, 0.12);
 }
 
-html {
+html,
+body {
+  width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,7 +33,6 @@ body {
   background:
     radial-gradient(circle at top right, rgba(74, 144, 255, 0.12), transparent 34%),
     linear-gradient(180deg, #f8fbff 0%, #edf5ff 100%);
-  overflow-x: hidden;
   position: relative;
 }
 
@@ -134,6 +136,11 @@ body {
   margin: 48px auto 64px;
 }
 
+.page-diagnosis .container {
+  width: min(1000px, calc(100% - 40px));
+  margin: 44px auto 64px;
+}
+
 .card {
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(214, 228, 245, 0.95);
@@ -151,6 +158,12 @@ body {
   padding: 54px 60px 48px;
 }
 
+.page-diagnosis .diagnosis-card {
+  width: 100%;
+  overflow: hidden;
+  padding: 56px 48px 48px;
+}
+
 .hero-layout {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -158,42 +171,41 @@ body {
   align-items: start;
 }
 
-.page-heading-row {
-  display: grid;
-  grid-template-columns: 92px 1fr;
-  gap: 34px;
-  align-items: start;
-  margin-bottom: 28px;
-}
-
-.hero-icon,
-.page-icon {
-  width: 92px;
-  height: 92px;
+/* =========================
+   5. 顔認識アイコン
+========================= */
+.face-icon-large {
+  width: 116px;
+  height: 116px;
+  margin: 0 auto 28px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #eef5ff 0%, #dfeeff 100%);
+  background: linear-gradient(180deg, #edf5ff 0%, #dcecff 100%);
+  border: 1px solid #c9dcfa;
   display: grid;
   place-items: center;
-  box-shadow: inset 0 0 0 1px rgba(15, 79, 214, 0.08);
+  box-shadow: 0 10px 24px rgba(15, 79, 214, 0.08);
 }
 
-.hero-icon svg,
-.page-icon svg {
-  width: 50px;
-  height: 50px;
+.face-icon-large svg {
+  width: 68px;
+  height: 68px;
 }
 
-.hero-icon svg path,
-.page-icon svg path {
+.face-icon-large .frame-path,
+.face-icon-large .face-path {
   fill: none;
   stroke: var(--primary);
-  stroke-width: 4;
+  stroke-width: 4.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.face-icon-large .face-path {
+  stroke-width: 4;
+}
+
 /* =========================
-   5. 文字
+   6. 文字
 ========================= */
 h2 {
   margin: 0 0 24px;
@@ -229,17 +241,39 @@ h3 {
   font-weight: 600;
 }
 
+.diagnosis-heading {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 44px;
+}
+
+.diagnosis-heading h2 {
+  margin: 0 0 22px;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.25;
+}
+
+.diagnosis-heading .description {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 19px;
+  line-height: 2;
+  font-weight: 700;
+}
+
 .form-label,
 .preview-label {
   display: block;
-  font-size: 18px;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto 16px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--text-main);
-  margin-bottom: 14px;
 }
 
 /* =========================
-   6. 注意書き
+   7. 注意書き
 ========================= */
 .notice-box {
   margin: 34px 0 38px;
@@ -275,7 +309,7 @@ h3 {
 }
 
 /* =========================
-   7. アップロード画面
+   8. アップロード画面
 ========================= */
 .form-group {
   margin: 30px 0 24px;
@@ -286,17 +320,20 @@ input[type="file"] {
 }
 
 .upload-box {
-  min-height: 116px;
   width: 100%;
+  max-width: 860px;
+  min-height: 138px;
+  margin: 0 auto;
+  padding: 28px 32px;
   border: 2px dashed #6da2ff;
-  border-radius: 16px;
-  background: rgba(248, 251, 255, 0.86);
+  border-radius: 18px;
+  background: rgba(248, 251, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 28px;
-  padding: 26px;
   cursor: pointer;
+  overflow: hidden;
   transition: 0.25s ease;
 }
 
@@ -313,32 +350,43 @@ input[type="file"] {
 }
 
 .upload-icon {
-  width: 58px;
-  height: 58px;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
   display: grid;
   place-items: center;
 }
 
 .upload-icon svg {
-  width: 54px;
-  height: 54px;
+  width: 66px;
+  height: 66px;
 }
 
 .upload-icon svg path {
   fill: none;
   stroke: var(--primary);
-  stroke-width: 4;
+  stroke-width: 4.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.upload-text-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .upload-button-text {
-  min-width: 210px;
-  padding: 16px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  min-height: 58px;
+  padding: 0 28px;
   border: 2px solid var(--primary);
-  border-radius: 10px;
-  color: var(--primary);
+  border-radius: 12px;
   background: #fff;
+  color: var(--primary);
   font-size: 20px;
   font-weight: 900;
   text-align: center;
@@ -349,6 +397,7 @@ input[type="file"] {
   font-size: 17px;
   line-height: 1.6;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .upload-help small {
@@ -356,34 +405,39 @@ input[type="file"] {
   font-size: 15px;
 }
 
+/* =========================
+   9. プレビュー
+========================= */
 .preview-area {
-  min-height: 190px;
+  width: 100%;
+  max-width: 860px;
+  min-height: 210px;
+  margin: 0 auto 30px;
+  padding: 28px;
   border: 2px dashed #cbd8ea;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
   display: grid;
   place-items: center;
-  padding: 24px;
-  margin-bottom: 28px;
   position: relative;
   overflow: hidden;
 }
 
 .preview-placeholder {
-  color: #94a3b8;
   text-align: center;
+  color: #94a3b8;
 }
 
 .preview-placeholder-icon {
   display: block;
-  width: 70px;
-  height: 70px;
+  width: 76px;
+  height: 76px;
   margin: 0 auto 10px;
 }
 
 .preview-placeholder-icon svg {
-  width: 70px;
-  height: 70px;
+  width: 76px;
+  height: 76px;
 }
 
 .preview-placeholder-icon svg rect,
@@ -405,6 +459,7 @@ input[type="file"] {
   max-width: 100%;
   max-height: 340px;
   border-radius: 16px;
+  object-fit: contain;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
   animation: previewFade 0.45s ease both;
 }
@@ -418,7 +473,7 @@ input[type="file"] {
 }
 
 /* =========================
-   8. 結果画面
+   10. 結果画面
 ========================= */
 .result-title-area {
   text-align: center;
@@ -499,7 +554,7 @@ input[type="file"] {
 }
 
 /* =========================
-   9. ボタン
+   11. ボタン
 ========================= */
 .button-area {
   display: flex;
@@ -569,6 +624,8 @@ input[type="file"] {
 
 .wide-button {
   width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   justify-content: center;
 }
 
@@ -577,7 +634,7 @@ input[type="file"] {
 }
 
 /* =========================
-   10. 状態表示
+   12. 状態表示
 ========================= */
 .loading {
   margin-top: 24px;
@@ -610,7 +667,7 @@ input[type="file"] {
 }
 
 /* =========================
-   11. アニメーション
+   13. アニメーション
 ========================= */
 @keyframes fadeUp {
   from {
@@ -655,24 +712,19 @@ input[type="file"] {
 }
 
 /* =========================
-   12. レスポンシブ
+   14. レスポンシブ
 ========================= */
 @media (max-width: 900px) {
-  .hero-layout,
-  .page-heading-row {
+  .hero-layout {
     grid-template-columns: 1fr;
     gap: 22px;
     text-align: center;
   }
 
-  .hero-icon,
-  .page-icon {
-    margin: 0 auto;
-  }
-
   .top-card,
   .diagnosis-card,
-  .result-card {
+  .result-card,
+  .page-diagnosis .diagnosis-card {
     padding: 42px 28px;
   }
 
@@ -685,6 +737,17 @@ input[type="file"] {
     text-align: center;
   }
 
+  .upload-text-group {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .upload-help {
+    white-space: normal;
+  }
+
   .result-buttons {
     flex-direction: column;
   }
@@ -692,6 +755,51 @@ input[type="file"] {
   .primary-button,
   .secondary-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-diagnosis .container {
+    width: calc(100% - 24px);
+    margin: 28px auto 48px;
+  }
+
+  .page-diagnosis .diagnosis-card {
+    padding: 36px 20px 34px;
+  }
+
+  .face-icon-large {
+    width: 96px;
+    height: 96px;
+  }
+
+  .face-icon-large svg {
+    width: 58px;
+    height: 58px;
+  }
+
+  .diagnosis-heading {
+    margin-bottom: 34px;
+  }
+
+  .diagnosis-heading h2 {
+    font-size: 34px;
+  }
+
+  .diagnosis-heading .description {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .upload-box {
+    min-height: auto;
+    padding: 26px 18px;
+    gap: 18px;
+  }
+
+  .upload-button-text {
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -760,314 +868,5 @@ input[type="file"] {
 
   .pc-only {
     display: none;
-  }
-}
-/* =========================
-   診断画面の見切れ・アイコン修正版
-========================= */
-
-/* 画面外にはみ出さないようにする */
-html,
-body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-/* 診断画面の横幅を安全に調整 */
-.page-diagnosis .container {
-  width: min(1000px, calc(100% - 40px));
-  margin: 44px auto 64px;
-}
-
-/* 診断カード内に余白を確保 */
-.page-diagnosis .diagnosis-card {
-  width: 100%;
-  overflow: hidden;
-  padding: 56px 48px 48px;
-}
-
-/* 上部タイトルエリア */
-.diagnosis-heading {
-  text-align: center;
-  max-width: 820px;
-  margin: 0 auto 44px;
-}
-
-/* 人の形がわかる顔認識アイコン */
-.face-icon-large {
-  width: 116px;
-  height: 116px;
-  margin: 0 auto 28px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #edf5ff 0%, #dcecff 100%);
-  border: 1px solid #c9dcfa;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 10px 24px rgba(15, 79, 214, 0.08);
-}
-
-.face-icon-large svg {
-  width: 68px;
-  height: 68px;
-}
-
-.face-icon-large .frame-path,
-.face-icon-large .face-path {
-  fill: none;
-  stroke: #0f4fd6;
-  stroke-width: 4.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.face-icon-large .face-path {
-  stroke-width: 4;
-}
-
-/* タイトルの余白調整 */
-.diagnosis-heading h2 {
-  margin: 0 0 22px;
-  font-size: clamp(34px, 4vw, 48px);
-  line-height: 1.25;
-}
-
-/* 説明文 */
-.diagnosis-heading .description {
-  margin: 0;
-  color: #334155;
-  font-size: 19px;
-  line-height: 2;
-  font-weight: 700;
-}
-
-/* ラベル */
-.form-label,
-.preview-label {
-  display: block;
-  width: 100%;
-  max-width: 860px;
-  margin: 0 auto 16px;
-  font-size: 20px;
-  font-weight: 900;
-  color: #071226;
-}
-
-/* file inputは非表示 */
-input[type="file"] {
-  display: none;
-}
-
-/* アップロード欄が右に見切れないようにする */
-.upload-box {
-  width: 100%;
-  max-width: 860px;
-  min-height: 138px;
-  margin: 0 auto;
-  padding: 28px 32px;
-  border: 2px dashed #6da2ff;
-  border-radius: 18px;
-  background: rgba(248, 251, 255, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  cursor: pointer;
-  overflow: hidden;
-  transition: 0.25s ease;
-}
-
-.upload-box:hover,
-.upload-box.is-dragover {
-  background: #eaf2ff;
-  border-color: #0f4fd6;
-  transform: translateY(-2px);
-}
-
-.upload-box.is-selected {
-  border-color: #0f4fd6;
-  background: #f1f7ff;
-}
-
-/* 雲アイコンを中央に見やすく */
-.upload-icon {
-  width: 72px;
-  height: 72px;
-  min-width: 72px;
-  display: grid;
-  place-items: center;
-}
-
-.upload-icon svg {
-  width: 66px;
-  height: 66px;
-}
-
-.upload-icon svg path {
-  fill: none;
-  stroke: #0f4fd6;
-  stroke-width: 4.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* アップロード欄の文字 */
-.upload-text-group {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.upload-button-text {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 220px;
-  min-height: 58px;
-  padding: 0 28px;
-  border: 2px solid #0f4fd6;
-  border-radius: 12px;
-  background: #fff;
-  color: #0f4fd6;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.upload-help {
-  color: #334155;
-  font-size: 17px;
-  line-height: 1.6;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.upload-help small {
-  color: #64748b;
-  font-size: 15px;
-}
-
-/* プレビュー欄も見切れないようにする */
-.preview-area {
-  width: 100%;
-  max-width: 860px;
-  min-height: 210px;
-  margin: 0 auto 30px;
-  padding: 28px;
-  border: 2px dashed #cbd8ea;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.82);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-
-/* プレビューの仮アイコン */
-.preview-placeholder {
-  text-align: center;
-  color: #94a3b8;
-}
-
-.preview-placeholder-icon {
-  display: block;
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 10px;
-}
-
-.preview-placeholder-icon svg {
-  width: 76px;
-  height: 76px;
-}
-
-.preview-placeholder-icon svg rect,
-.preview-placeholder-icon svg circle,
-.preview-placeholder-icon svg path {
-  fill: none;
-  stroke: #94a3b8;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.preview-placeholder p {
-  margin: 0;
-  font-weight: 700;
-}
-
-/* 選択画像 */
-.preview-image {
-  max-width: 100%;
-  max-height: 340px;
-  border-radius: 16px;
-  object-fit: contain;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
-}
-
-/* 診断ボタンの幅をアップロード欄と揃える */
-.wide-button {
-  width: 100%;
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-/* 安全メッセージ */
-.secure-text {
-  text-align: center;
-  color: #94a3b8;
-  font-size: 15px;
-  font-weight: 700;
-  margin: 18px 0 0;
-}
-
-/* スマホ・狭い画面対応 */
-@media (max-width: 700px) {
-  .page-diagnosis .container {
-    width: calc(100% - 24px);
-    margin: 28px auto 48px;
-  }
-
-  .page-diagnosis .diagnosis-card {
-    padding: 36px 20px 34px;
-  }
-
-  .face-icon-large {
-    width: 96px;
-    height: 96px;
-  }
-
-  .face-icon-large svg {
-    width: 58px;
-    height: 58px;
-  }
-
-  .diagnosis-heading h2 {
-    font-size: 34px;
-  }
-
-  .diagnosis-heading .description {
-    font-size: 15px;
-    line-height: 1.9;
-  }
-
-  .upload-box {
-    min-height: auto;
-    padding: 26px 18px;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .upload-text-group {
-    flex-direction: column;
-    gap: 14px;
-    text-align: center;
-    width: 100%;
-  }
-
-  .upload-button-text {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .upload-help {
-    white-space: normal;
   }
 }

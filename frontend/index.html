@@ -29,10 +29,19 @@
   <main class="container">
     <section class="card hero-card top-card">
       <div class="hero-layout">
-        <div class="hero-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64">
-            <path d="M20 26c0-7 5-12 12-12s12 5 12 12v8c0 7-5 12-12 12s-12-5-12-12v-8z" />
-            <path d="M14 22v-8h8M42 14h8v8M22 50h-8v-8M50 42v8h-8" />
+        <div class="face-icon-large" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <!-- 外側の認識フレーム -->
+            <path class="frame-path" d="M24 18h-8v8" />
+            <path class="frame-path" d="M56 18h8v8" />
+            <path class="frame-path" d="M16 54v8h8" />
+            <path class="frame-path" d="M64 54v8h-8" />
+
+            <!-- 人の顔 -->
+            <circle class="face-path" cx="40" cy="34" r="12" />
+
+            <!-- 肩・体 -->
+            <path class="face-path" d="M22 64c2.8-11 10-17 18-17s15.2 6 18 17" />
           </svg>
         </div>
 
