@@ -174,45 +174,26 @@ document.addEventListener("DOMContentLoaded", () => {
     setLoading(true);
 
     try {
-      /*
-        仮実装版です。
-        バックエンド未接続でも結果画面を確認できるようにしています。
-      */
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const formData = new FormData();
+      formData.append("file", file);
 
-      const data = {
-        prediction: "nobel",
-        subprediction: "nobel_peace"
-      };
+      // サーバーを起動しているマシンのIPアドレスに書き換えてください
+      const response = await fetch("http://127.0.0.1:8000/predict", {
+        method: "POST",
+        body: formData
+      });
 
-      localStorage.setItem("prediction", data.prediction || "");
-      localStorage.setItem("subprediction", data.subprediction || "");
+      if (!response.ok) {
+        throw new Error("診断に失敗しました。");
+      }
+
+      const data = await response.json();
+
+      // APIのレスポンスに合わせてlocalStorageに保存
+      localStorage.setItem("prediction", data.prediction);
+      localStorage.setItem("subprediction", `将来の確信度: ${(data.probability * 100).toFixed(1)}%`);
 
       window.location.href = "./result.html";
-
-      /*
-        FastAPIなどのバックエンドに接続する場合は、
-        上の仮実装を削除して、下のコードを使ってください。
-
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const response = await fetch("http://127.0.0.1:8000/predict", {
-          method: "POST",
-          body: formData
-        });
-
-        if (!response.ok) {
-          throw new Error("診断に失敗しました。");
-        }
-
-        const data = await response.json();
-
-        localStorage.setItem("prediction", data.prediction || "");
-        localStorage.setItem("subprediction", data.subprediction || "");
-
-        window.location.href = "./result.html";
-      */
     } catch (error) {
       showError(`エラー: ${error.message}`);
     } finally {
