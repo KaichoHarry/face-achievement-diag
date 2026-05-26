@@ -17,6 +17,22 @@ CATEGORIES = [
     "09_founder", "10_celebrity", "11_politician", "12_criminal"
 ]
 
+# 日本語表示用のマッピング
+CATEGORY_NAMES_JP = {
+    "01_nobel_winner": "ノーベル賞受賞者",
+    "02_michelin_chef": "ミシュラン料理人",
+    "03_olympic_medalist": "オリンピックメダリスト",
+    "04_guinness_holder": "ギネス記録獲得者",
+    "05_awarded_author": "受賞作家",
+    "06_billionaire": "億万長者",
+    "07_astronaut": "宇宙飛行士",
+    "08_professor": "教授",
+    "09_founder": "建国者",
+    "10_celebrity": "芸能人",
+    "11_politician": "政治家",
+    "12_criminal": "凶悪犯"
+}
+
 class Predictor:
     def __init__(self, model_path: str):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,10 +59,12 @@ class Predictor:
             probabilities = F.softmax(outputs, dim=1)
             confidence, index = torch.max(probabilities, 1)
 
-        cat_name = CATEGORIES[index.item()]
+        cat_tag = CATEGORIES[index.item()]
+        prediction_jp = CATEGORY_NAMES_JP.get(cat_tag, cat_tag)
+
         # フロントエンドが使いやすいように数値や綺麗な名前も返せるようにします
         return {
-            "prediction": cat_name,
+            "prediction": prediction_jp,
             "probability": float(confidence.item()),
             "category_id": index.item() + 1
         }

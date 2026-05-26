@@ -14,6 +14,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def read_root():
+    return {"message": "Face Achievement Diagnosis API is running. Use /docs for documentation."}
+
 @app.post("/predict", response_model=PredictionResponse)
 async def predict(file: UploadFile = File(...)):
     # 画像ファイルかチェック
