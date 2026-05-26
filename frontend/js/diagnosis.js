@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // APIのレスポンスに合わせてlocalStorageに保存
       localStorage.setItem("prediction", data.prediction);
-      localStorage.setItem("subprediction", `将来の確信度: ${(data.probability * 100).toFixed(1)}%`);
+      localStorage.setItem("subprediction", `${(data.probability * 100).toFixed(1)}%`);
 
       window.location.href = "./result.html";
     } catch (error) {
