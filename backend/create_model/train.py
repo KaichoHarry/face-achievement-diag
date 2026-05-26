@@ -11,7 +11,8 @@ def main():
     config = Config()
     train_loader, val_loader, num_classes = get_dataloaders(config)
     
-    model = create_achievement_model(num_classes).to(config.DEVICE)
+    # 学習時は事前学習済み重みをロードする
+    model = create_achievement_model(num_classes, pretrained=True).to(config.DEVICE)
     criterion = nn.CrossEntropyLoss()
     # 全層チューニングを行うためAdamを使用。学習率は低めに。
     optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)

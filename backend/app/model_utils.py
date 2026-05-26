@@ -35,8 +35,12 @@ CATEGORY_NAMES_JP = {
 
 class Predictor:
     def __init__(self, model_path: str):
+        # メモリ節約のためスレッド数を制限
+        torch.set_num_threads(1)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = create_achievement_model(num_classes=len(CATEGORIES))
+        
+        # 推論時はImageNetの重みをロードせず、自作の重みのみをロードする
+        self.model = create_achievement_model(num_classes=len(CATEGORIES), pretrained=False)
         self.model.load_state_dict(torch.load(model_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
@@ -48,6 +52,7 @@ class Predictor:
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
 
+    @torch.inference_mode()
     def predict(self, image_bytes: bytes):
         # 画像の読み込みと前処理
         image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
