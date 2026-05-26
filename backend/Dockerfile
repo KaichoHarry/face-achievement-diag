@@ -1,21 +1,22 @@
-# Python 3.11のスリム版を使用
-FROM python:3.11-slim
+FROM python:3.10-slim
 
-# コンテナ内の作業ディレクトリ
-WORKDIR /app
-
-# 必要なOSライブラリ（OpenCVやPostgreSQL用）をインストール
+# 必要なシステムパッケージのインストール（画像の処理などに必要）
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# 依存ライブラリをコピーしてインストール
+WORKDIR /work
+
+# 依存関係のインストール
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ソースコードをコピー
-COPY . .
+# アプリケーションコードと学習済みモデルのコピー
+COPY ./app ./app
+COPY ./create_model/src ./create_model/src
+COPY ./create_model/models ./create_model/models
 
-# FastAPIを起動（ホットリロード有効）
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Gunicornを使用して起動（Uvicornワーカーを利用）
+EXPOSE 8000
+CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]

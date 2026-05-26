@@ -1,6 +1,6 @@
 fastapi
 uvicorn[standard]
 python-multipart
-psycopg2-binary
-torch
-torchvision
+torch --extra-index-url https://download.pytorch.org/whl/cpu
+torchvision --extra-index-url https://download.pytorch.org/whl/cpu
+gunicorn
