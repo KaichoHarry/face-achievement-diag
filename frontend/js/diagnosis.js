@@ -177,9 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // RenderのURLに書き換えてください（例: https://face-diag-api.onrender.com/predict）
-      // 開発時は http://127.0.0.1:8000/predict を使用
-      const API_URL = "https://face-achievement-diag.onrender.com/predict";
+      // 同一ドメインから配信するため相対パスで指定可能
+      const API_URL = "/predict";
 
       const response = await fetch(API_URL, {
         method: "POST",

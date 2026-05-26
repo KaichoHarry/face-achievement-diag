@@ -1,7 +1,9 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from .model_utils import predictor
 from .schemas import PredictionResponse
+import os
 
 app = FastAPI(title="Face Achievement Diagnosis API")
 
@@ -31,4 +33,10 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# 起動コマンド: uvicorn app.main:app --reload
+# フロントエンドの静的ファイルを配信 (Hugging Face用)
+# frontend フォルダがリポジトリのルートにある前提
+static_path = os.path.join(os.path.dirname(__file__), "../../frontend")
+if os.path.exists(static_path):
+    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
+
+# 起動コマンド: uvicorn app.main:app --host 0.0.0.0 --port 7860

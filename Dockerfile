@@ -16,7 +16,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./app ./app
 COPY ./create_model/src ./create_model/src
 COPY ./create_model/models ./create_model/models
+# フロントエンドのコードもコピー
+COPY ../frontend /frontend
 
 # メモリ節約のためGunicornを介さずUvicornを直接起動
-EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Hugging Face Spaces は 7860 ポートを期待します
+EXPOSE 7860
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
