@@ -3,6 +3,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 from PIL import Image
 import io
+import gc
 import sys
 import os
 
@@ -40,10 +41,19 @@ class Predictor:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         # 推論時はImageNetの重みをロードせず、自作の重みのみをロードする
-        self.model = create_achievement_model(num_classes=len(CATEGORIES), pretrained=False)
-        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+        model = create_achievement_model(num_classes=len(CATEGORIES), pretrained=False)
+        model.load_state_dict(torch.load(model_path, map_location=self.device))
+        
+        # 動的量子化を適用 (メモリ削減と高速化)
+        self.model = torch.quantization.quantize_dynamic(
+            model, {torch.nn.Linear}, dtype=torch.qint8
+        )
+        
         self.model.to(self.device)
         self.model.eval()
+        
+        # メモリの強制解放
+        gc.collect()
 
         # 学習時と同じ正規化パラメータを使用
         self.transform = transforms.Compose([
