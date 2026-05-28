@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from .model_utils import predictor
 from .schemas import PredictionResponse
 import os
+import logging
 
 app = FastAPI(title="Face Achievement Diagnosis API")
 
@@ -31,15 +32,18 @@ async def predict(file: UploadFile = File(...)):
         result = predictor.predict(contents)
         return result
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logging.error(f"Prediction error: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error during prediction.")
 
-static_path = "/frontend"
+def get_static_path():
+    paths = ["/frontend", os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))]
+    for p in paths:
+        if os.path.exists(p):
+            return p
+    return None
 
-if not os.path.exists(static_path):
-    # 開発環境（ローカル）での実行用パス
-    static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
-
-if os.path.exists(static_path):
-    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
+path = get_static_path()
+if path:
+    app.mount("/", StaticFiles(directory=path, html=True), name="static")
 
 # 起動コマンド: uvicorn app.main:app --host 0.0.0.0 --port 7860

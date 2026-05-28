@@ -8,8 +8,16 @@ import sys
 import os
 
 # create_model/src/model.py をインポートできるようにパスを追加
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from create_model.src.model import create_achievement_model
+current_dir = os.path.dirname(os.path.abspath(__file__))
+backend_root = os.path.abspath(os.path.join(current_dir, ".."))
+if backend_root not in sys.path:
+    sys.path.insert(0, backend_root)
+
+try:
+    from create_model.src.model import create_achievement_model
+except ImportError:
+    # 異なる実行環境（ローカル実行等）へのフォールバック
+    from create_model.src.model import create_achievement_model
 
 # カテゴリ一覧（フォルダ名の順番と一致させる必要があります）
 CATEGORIES = [

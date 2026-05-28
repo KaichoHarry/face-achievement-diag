@@ -2,3 +2,7 @@
 __pycache__/
 *.py[cod]
 .env
+**/data/
+**/row_data/
+backend/miniconda_test/
+!backend/create_model/models/best_model.pth
