@@ -1,0 +1,6 @@
+**/__pycache__/
+*.py[cod]
+**/data/
+**/row_data/
+.git/
+.DS_Store

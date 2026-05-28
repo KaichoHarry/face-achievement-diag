@@ -33,14 +33,11 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# フロントエンドの静的ファイルを配信 (Hugging Face用)
-# frontend フォルダがリポジトリのルートにある前提
-# Dockerfile 内で COPY frontend /frontend としている場合は /frontend を参照
 static_path = "/frontend"
 
-# 念のためローカル開発環境とコンテナ環境の両方に対応
 if not os.path.exists(static_path):
-    static_path = os.path.join(os.path.dirname(__file__), "../../frontend")
+    # 開発環境（ローカル）での実行用パス
+    static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
 
 if os.path.exists(static_path):
     app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
