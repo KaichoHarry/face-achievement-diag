@@ -178,7 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("file", file);
 
       // 同一ドメインから配信するため相対パスで指定可能
-      const API_URL = "/predict";
+      // Hugging Face SpacesのAPIエンドポイント（絶対パス）に修正
+      const API_URL = "https://kaichoharry-backend-face-achievement.hf.space/predict";
 
       const response = await fetch(API_URL, {
         method: "POST",
