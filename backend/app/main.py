@@ -35,15 +35,9 @@ async def predict(file: UploadFile = File(...)):
         logging.error(f"Prediction error: {e}")
         raise HTTPException(status_code=500, detail="Internal server error during prediction.")
 
-def get_static_path():
-    paths = ["/frontend", os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))]
-    for p in paths:
-        if os.path.exists(p):
-            return p
-    return None
+# 静的ファイルの配信設定 (ローカル開発用)
+static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
+if os.path.exists(static_path):
+    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
 
-path = get_static_path()
-if path:
-    app.mount("/", StaticFiles(directory=path, html=True), name="static")
-
-# 起動コマンド: uvicorn app.main:app --host 0.0.0.0 --port 7860
+# 起動コマンド: uvicorn app.main:app --reload

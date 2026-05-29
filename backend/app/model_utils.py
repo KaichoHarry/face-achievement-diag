@@ -9,15 +9,11 @@ import os
 
 # create_model/src/model.py をインポートできるようにパスを追加
 current_dir = os.path.dirname(os.path.abspath(__file__))
-backend_root = os.path.abspath(os.path.join(current_dir, ".."))
-if backend_root not in sys.path:
-    sys.path.insert(0, backend_root)
+project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-try:
-    from create_model.src.model import create_achievement_model
-except ImportError:
-    # 異なる実行環境（ローカル実行等）へのフォールバック
-    from create_model.src.model import create_achievement_model
+from backend.create_model.src.model import create_achievement_model
 
 # カテゴリ一覧（フォルダ名の順番と一致させる必要があります）
 CATEGORIES = [
@@ -51,11 +47,6 @@ class Predictor:
         # 推論時はImageNetの重みをロードせず、自作の重みのみをロードする
         model = create_achievement_model(num_classes=len(CATEGORIES), pretrained=False)
         model.load_state_dict(torch.load(model_path, map_location=self.device))
-        
-        # 動的量子化を適用 (メモリ削減と高速化)
-        self.model = torch.quantization.quantize_dynamic(
-            model, {torch.nn.Linear}, dtype=torch.qint8
-        )
         
         self.model.to(self.device)
         self.model.eval()
