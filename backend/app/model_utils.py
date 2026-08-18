@@ -9,11 +9,11 @@ import os
 
 # create_model/src/model.py をインポートできるようにパスを追加
 current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+project_root = os.path.dirname(current_dir)
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from backend.create_model.src.model import create_achievement_model
+from create_model.src.model import create_achievement_model
 
 # カテゴリ一覧（フォルダ名の順番と一致させる必要があります）
 CATEGORIES = [
@@ -47,7 +47,8 @@ class Predictor:
         # 推論時はImageNetの重みをロードせず、自作の重みのみをロードする
         model = create_achievement_model(num_classes=len(CATEGORIES), pretrained=False)
         model.load_state_dict(torch.load(model_path, map_location=self.device))
-        
+        self.model = model
+
         self.model.to(self.device)
         self.model.eval()
         
