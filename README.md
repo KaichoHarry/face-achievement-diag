@@ -1,3 +1,14 @@
+---
+title: Face Achievement Diag
+emoji: 📈
+colorFrom: green
+colorTo: green
+sdk: docker
+pinned: false
+license: mit
+short_description: 顔面偉業診断
+---
+
 # 顔面偉業診断 (Face Achievement Diagnosis)
 ## [cite_start]〜ビジネス AI システム開発プロジェクト〜 [cite: 4]
 
