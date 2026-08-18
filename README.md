@@ -4,6 +4,7 @@ emoji: 📈
 colorFrom: green
 colorTo: green
 sdk: docker
+app_port: 8000
 pinned: false
 license: mit
 short_description: 顔面偉業診断
